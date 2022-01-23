@@ -186,7 +186,27 @@ a:active{ color:#009ee0;}
 #loading span{ width:0%; height:4px; background:white; position:absolute; left:0; top:50%; margin-top:-2px; z-index:60; transition:.5s;}
 </style>
 <script>
+const render = ($) => {
+  $('#purehtml-container').html('Hello, render with js');
+  return Promise.resolve();
+};
 
+((global) => {
+  global['purehtml'] = {
+    bootstrap: () => {
+      console.log('purehtml bootstrap');
+      return Promise.resolve();
+    },
+    mount: () => {
+      console.log('purehtml mount');
+      return render($);
+    },
+    unmount: () => {
+      console.log('purehtml unmount');
+      return Promise.resolve();
+    },
+  };
+})(window);
 //console.log( window.innerWidth );    1366
 //console.log( window.innerHeight );   654  /  643
 
